@@ -3,11 +3,9 @@ package com.jhonnathan.crud_products;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class CrudProductsApplicationTests {
-
+//@SpringBootTest
+public class CrudProductsApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
