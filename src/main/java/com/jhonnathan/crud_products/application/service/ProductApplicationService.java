@@ -20,12 +20,10 @@ import java.util.stream.Collectors;
 public class ProductApplicationService {
     private final ProductDomainService service;
     private final CloudinaryImagePort uploadImage;
-    private final CachePort cachePort;
 
-    public ProductApplicationService(ProductDomainService service, CloudinaryImagePort uploadImage, CachePort cachePort) {
+    public ProductApplicationService(ProductDomainService service, CloudinaryImagePort uploadImage) {
         this.service = service;
         this.uploadImage = uploadImage;
-        this.cachePort = cachePort;
     }
 
     public ProductDTO create(ProductDTO productDTO, List<MultipartFile> images) throws IOException {
@@ -40,21 +38,11 @@ public class ProductApplicationService {
         }
 
         Product createdProduct = service.create(product);
-        ProductDTO createdProductDTO = ProductMapper.toDto(createdProduct);
-
-        cachePort.guardarEnCache("product_" + createdProduct.getId(), createdProductDTO, 10, TimeUnit.MINUTES);
-        return createdProductDTO;
+        return ProductMapper.toDto(createdProduct);
     }
 
     public Optional<ProductDTO> getById(long id) {
-        ProductDTO cachedProduct = (ProductDTO) cachePort.obtenerDeCache("product_" + id);
-        if (cachedProduct != null) {
-            return Optional.of(cachedProduct);
-        }
-        Optional<ProductDTO> productDTO = service.getProductById(id).map(ProductMapper::toDto);
-        productDTO.ifPresent(p -> cachePort.guardarEnCache("product_" + id, p, 10, TimeUnit.MINUTES));
-
-        return productDTO;
+        return service.getProductById(id).map(ProductMapper::toDto);
     }
 
     public List<ProductDTO> getAll(){
@@ -81,24 +69,16 @@ public class ProductApplicationService {
         }
 
         Product updatedProduct = service.update(id, product);
-        ProductDTO updatedProductDTO = ProductMapper.toDto(updatedProduct);
-
-        cachePort.eliminarDeCache("product_" + id);
-
-        cachePort.guardarEnCache("product_" + id, updatedProductDTO, 10, TimeUnit.MINUTES);
-
-        return updatedProductDTO;
+        return ProductMapper.toDto(updatedProduct);
     }
-
 
     public void delete(long id) {
         Optional<Product> productId = service.getProductById(id);
-
         if (!productId.isPresent()) {
             throw new ProductNotFoundException("Producto no encontrado");
         } else {
             service.delete(id);
-            cachePort.eliminarDeCache("product_" + id); // Eliminar de caché
         }
     }
 }
+
