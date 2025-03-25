@@ -1,6 +1,7 @@
 package com.jhonnathan.crud_products.infrastructure.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import com.jhonnathan.crud_products.application.dto.ProductDTO;
 import com.jhonnathan.crud_products.application.service.ProductApplicationService;
 import org.springframework.http.MediaType;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/products")
 public class ProductsController {
