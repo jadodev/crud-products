@@ -1,6 +1,8 @@
 package com.jhonnathan.crud_products.application.service;
 
 import com.jhonnathan.crud_products.application.dto.ProductDTO;
+import com.jhonnathan.crud_products.application.dto.ProductRequestDTO;
+import com.jhonnathan.crud_products.application.dto.ProductResponseDTO;
 import com.jhonnathan.crud_products.application.mapper.ProductMapper;
 import com.jhonnathan.crud_products.domain.entity.Product;
 import com.jhonnathan.crud_products.domain.port.out.CachePort;
@@ -80,5 +82,77 @@ public class ProductApplicationService {
             service.delete(id);
         }
     }
+
+    public List<ProductResponseDTO> requestProducts(List<ProductRequestDTO> productRequests) {
+        return productRequests.stream().map(request -> {
+            Product product = service.getProductById(request.getId())
+                    .orElseThrow(() -> new ProductNotFoundException("Producto no encontrado"));
+
+            if (product.getStock() < request.getQuantity()) {
+                return new ProductResponseDTO(
+                        product.getId(),
+                        product.getName(),
+                        product.getDescription(),
+                        product.getCategory(),
+                        product.getAvaible(),
+                        product.getStock(),
+                        product.getPrice(),
+                        product.getTotal_price(),
+                        product.getDiscount(),
+                        product.getImages()
+                );
+            }
+            product.setStock(product.getStock() - request.getQuantity());
+            Product updatedProduct = service.update(product.getId(), product);
+
+            return new ProductResponseDTO(
+                    updatedProduct.getId(),
+                    updatedProduct.getName(),
+                    updatedProduct.getDescription(),
+                    updatedProduct.getCategory(),
+                    updatedProduct.getAvaible(),
+                    updatedProduct.getStock(),
+                    updatedProduct.getPrice(),
+                    updatedProduct.getTotal_price(),
+                    updatedProduct.getDiscount(),
+                    updatedProduct.getImages()
+            );
+        }).collect(Collectors.toList());
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

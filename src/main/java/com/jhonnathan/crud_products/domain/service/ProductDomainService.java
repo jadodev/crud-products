@@ -6,6 +6,7 @@ import com.jhonnathan.crud_products.domain.port.out.ProductRepositoryPort;
 import com.jhonnathan.crud_products.domain.state.Avaible;
 import com.jhonnathan.crud_products.exceptions.DiscountException;
 import com.jhonnathan.crud_products.exceptions.PriceException;
+import com.jhonnathan.crud_products.exceptions.ProductNotFoundException;
 import com.jhonnathan.crud_products.exceptions.StockException;
 import org.springframework.stereotype.Service;
 
@@ -64,5 +65,17 @@ public class ProductDomainService implements ProductServicePort {
     @Override
     public void delete(Long id) {
         repository.delete(id);
+    }
+
+    public Product updateStock(Long id, int quantity){
+        Product product = repository.getProductById(id)
+                .orElseThrow(()-> new ProductNotFoundException("Producto no encontrado"));
+
+        if (product.getStock() < quantity){
+            throw new StockException("Stock insuficiente");
+        }
+
+        product.setStock(product.getStock() - quantity);
+        return  repository.update(id, product);
     }
 }

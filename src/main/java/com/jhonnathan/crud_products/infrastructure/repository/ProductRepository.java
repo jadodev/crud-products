@@ -3,6 +3,7 @@ package com.jhonnathan.crud_products.infrastructure.repository;
 import com.jhonnathan.crud_products.domain.entity.Product;
 import com.jhonnathan.crud_products.domain.port.out.ProductRepositoryPort;
 import com.jhonnathan.crud_products.exceptions.ProductNotFoundException;
+import com.jhonnathan.crud_products.exceptions.StockException;
 import com.jhonnathan.crud_products.infrastructure.entity.ProductEntity;
 import com.jhonnathan.crud_products.infrastructure.mapper.ProductEntityMapper;
 import org.springframework.stereotype.Repository;
@@ -70,7 +71,41 @@ public class ProductRepository implements ProductRepositoryPort {
         }
 
     }
+
+    @Override
+    public Product updateStock(Long productId, int quantity) {
+        return repositoryJpa.findById(productId)
+                .map(p -> {
+                    Product product = ProductEntityMapper.toDomain(p);
+
+                    if (product.getStock() < quantity) {
+                        throw new StockException("Stock insuficiente para el producto con ID: " + productId);
+                    }
+
+                    product.setStock(product.getStock() - quantity);
+                    ProductEntity updatedProductEntity = ProductEntityMapper.toEntity(product);
+                    updatedProductEntity.setId(p.getId());
+
+                    updatedProductEntity = repositoryJpa.save(updatedProductEntity);
+                    return ProductEntityMapper.toDomain(updatedProductEntity);
+                })
+                .orElseThrow(() -> new ProductNotFoundException("Producto no encontrado con ID: " + productId));
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

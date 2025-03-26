@@ -1,8 +1,9 @@
 package com.jhonnathan.crud_products.infrastructure.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import com.jhonnathan.crud_products.application.dto.ProductDTO;
+import com.jhonnathan.crud_products.application.dto.ProductRequestDTO;
+import com.jhonnathan.crud_products.application.dto.ProductResponseDTO;
 import com.jhonnathan.crud_products.application.service.ProductApplicationService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -67,4 +68,52 @@ public class ProductsController {
     public void deleteProduct(@PathVariable long id) {
         service.delete(id);
     }
+
+    @PostMapping("/request")
+    public ResponseEntity<List<ProductResponseDTO>> requestProducts(@RequestBody List<ProductRequestDTO> productRequests) {
+        List<ProductResponseDTO> updatedProducts = service.requestProducts(productRequests);
+        return ResponseEntity.ok(updatedProducts);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
