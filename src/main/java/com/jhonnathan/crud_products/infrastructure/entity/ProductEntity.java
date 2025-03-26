@@ -27,15 +27,11 @@ public class ProductEntity {
 
     private Long stock;
     private Double price;
-    private Double totalPrice;
-    private Double discount;
 
     @ElementCollection
     @CollectionTable(name = "product_images", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "image_url")
     private List<String> images;
-
-    private LocalDateTime createAt;
 
     public ProductEntity() {}
 
@@ -46,10 +42,7 @@ public class ProductEntity {
             Avaible avaible,
             Long stock,
             double price,
-            double totalPrice,
-            Double discount,
-            List<String> images,
-            LocalDateTime createAt
+            List<String> images
     ) {
         this.name = name;
         this.description = description;
@@ -57,10 +50,7 @@ public class ProductEntity {
         this.avaible = avaible;
         this.stock = stock;
         this.price = price;
-        this.totalPrice = totalPrice;
-        this.discount = discount;
         this.images = images;
-        this.createAt = createAt;
     }
 
     public long getId() {
@@ -119,22 +109,6 @@ public class ProductEntity {
         this.price = price;
     }
 
-    public Double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public Double getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Double discount) {
-        this.discount = discount;
-    }
-
     public List<String> getImages() {
         return images;
     }
@@ -143,11 +117,4 @@ public class ProductEntity {
         this.images = images;
     }
 
-    public LocalDateTime getCreateAt() {
-        return createAt;
-    }
-
-    public void setCreateAt(LocalDateTime createAt) {
-        this.createAt = createAt;
-    }
 }

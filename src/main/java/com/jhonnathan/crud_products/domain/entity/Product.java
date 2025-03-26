@@ -13,10 +13,7 @@ public class Product {
     private Avaible avaible;
     private long stock;
     private double price;
-    private double total_price;
-    private Double discount;
     private List<String> images;
-    private LocalDateTime createAt;
 
     public Product(
             Long id,
@@ -26,10 +23,7 @@ public class Product {
             Avaible avaible,
             long stock,
             double price,
-            double total_price,
-            Double discount,
-            List<String> images,
-            LocalDateTime createAt
+            List<String> images
     ){
         this.id = id;
         this.name = name;
@@ -38,15 +32,7 @@ public class Product {
         this.avaible = (avaible != null) ? avaible : Avaible.Disponible ;
         this.stock = stock;
         this.price = price;
-        this.total_price = calculate_total_price();
-        this.discount = discount != null ? discount : 0.0;
         this.images = images;
-        this.createAt = createAt;
-    }
-
-    public double calculate_total_price() {
-        double appliedDiscount = (discount != null) ? discount.doubleValue() : 0.0;
-        return price - (price * appliedDiscount / 100);
     }
 
     public long getId() {
@@ -84,10 +70,6 @@ public class Product {
         this.avaible = avaible;
     }
 
-    public LocalDateTime getCreateAt() {
-        return createAt;
-    }
-
     public long getStock() {
         return stock;
     }
@@ -104,14 +86,6 @@ public class Product {
         this.price = price;
     }
 
-    public Double getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Double discount) {
-        this.discount = discount;
-    }
-
     public List<String> getImages() {
         return images;
     }
@@ -120,7 +94,4 @@ public class Product {
         this.images = images;
     }
 
-    public double getTotal_price() {
-        return calculate_total_price();
-    }
 }

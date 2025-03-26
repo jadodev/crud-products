@@ -49,7 +49,6 @@ public class ProductRepository implements ProductRepositoryPort {
                     existingProduct.setCategory(product.getCategory());
                     existingProduct.setStock(product.getStock());
                     existingProduct.setPrice(product.getPrice());
-                    existingProduct.setDiscount(product.getDiscount());
                     existingProduct.setImages(product.getImages());
 
                     ProductEntity updatedProductEntity = ProductEntityMapper.toEntity(existingProduct);

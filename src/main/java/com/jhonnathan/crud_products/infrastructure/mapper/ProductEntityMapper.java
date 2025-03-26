@@ -12,10 +12,7 @@ public class ProductEntityMapper {
                 product.getAvaible(),
                 product.getStock(),
                 product.getPrice(),
-                product.getTotal_price(),
-                product.getDiscount(),
-                product.getImages(),
-                product.getCreateAt()
+                product.getImages()
         );
     }
 
@@ -28,10 +25,7 @@ public class ProductEntityMapper {
                 productEntity.getAvaible(),
                 productEntity.getStock(),
                 productEntity.getPrice(),
-                productEntity.getTotalPrice(),
-                productEntity.getDiscount(),
-                productEntity.getImages(),
-                productEntity.getCreateAt()
+                productEntity.getImages()
         );
     }
 }

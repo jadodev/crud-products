@@ -12,8 +12,6 @@ public class ProductResponseDTO {
     private Avaible avaible;
     private long stock;
     private double price;
-    private double total_price;
-    private Double discount;
     private List<String> images;
 
     public ProductResponseDTO(
@@ -24,8 +22,6 @@ public class ProductResponseDTO {
             Avaible avaible,
             long stock,
             double price,
-            double total_price,
-            Double discount,
             List<String> images) {
         this.id = id;
         this.name = name;
@@ -34,8 +30,6 @@ public class ProductResponseDTO {
         this.avaible = avaible;
         this.stock = stock;
         this.price = price;
-        this.total_price = total_price;
-        this.discount = discount;
         this.images = images;
     }
 
@@ -93,22 +87,6 @@ public class ProductResponseDTO {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public double getTotal_price() {
-        return total_price;
-    }
-
-    public void setTotal_price(double total_price) {
-        this.total_price = total_price;
-    }
-
-    public Double getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Double discount) {
-        this.discount = discount;
     }
 
     public List<String> getImages() {

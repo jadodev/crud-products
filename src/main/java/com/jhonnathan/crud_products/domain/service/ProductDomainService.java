@@ -55,10 +55,6 @@ public class ProductDomainService implements ProductServicePort {
             product.setAvaible(Avaible.NoDisponible);
         }
 
-        if (product.getDiscount() < 0){
-            throw new DiscountException("El descuento no puede ser menor a cero");
-        }
-
         return repository.update(id, product);
     }
 

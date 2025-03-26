@@ -63,7 +63,6 @@ public class ProductApplicationService {
         product.setDescription(productDTO.getDescription());
         product.setStock(productDTO.getStock());
         product.setPrice(productDTO.getPrice());
-        product.setDiscount(productDTO.getDiscount());
 
         if (images != null && !images.isEmpty()) {
             List<String> imagesUrls = uploadImage.uploadImages(images);
@@ -97,8 +96,6 @@ public class ProductApplicationService {
                         product.getAvaible(),
                         product.getStock(),
                         product.getPrice(),
-                        product.getTotal_price(),
-                        product.getDiscount(),
                         product.getImages()
                 );
             }
@@ -113,8 +110,6 @@ public class ProductApplicationService {
                     updatedProduct.getAvaible(),
                     updatedProduct.getStock(),
                     updatedProduct.getPrice(),
-                    updatedProduct.getTotal_price(),
-                    updatedProduct.getDiscount(),
                     updatedProduct.getImages()
             );
         }).collect(Collectors.toList());

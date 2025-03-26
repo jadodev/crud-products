@@ -13,10 +13,7 @@ public class ProductMapper {
             product.getAvaible(),
             product.getStock(),
             product.getPrice(),
-            product.getTotal_price(),
-            product.getDiscount(),
-            product.getImages(),
-            product.getCreateAt()
+            product.getImages()
         );
     }
 
@@ -29,10 +26,7 @@ public class ProductMapper {
                 productDTO.getAvaible(),
                 productDTO.getStock(),
                 productDTO.getPrice(),
-                productDTO.getTotal_price(),
-                productDTO.getDiscount(),
-                productDTO.getImages(),
-                productDTO.getCreateAt()
+                productDTO.getImages()
         );
     }
 }

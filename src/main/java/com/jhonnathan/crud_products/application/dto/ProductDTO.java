@@ -13,10 +13,7 @@ public class ProductDTO {
     private Avaible avaible;
     private long stock;
     private double price;
-    private double total_price;
-    private Double discount;
     private List<String> images;
-    private LocalDateTime createAt;
 
     public ProductDTO() {};
 
@@ -28,10 +25,7 @@ public class ProductDTO {
             Avaible avaible,
             long stock,
             double price,
-            double total_price,
-            Double discount,
-            List<String> images,
-            LocalDateTime createAt
+            List<String> images
     ) {
         this.id = id;
         this.name = name;
@@ -40,10 +34,7 @@ public class ProductDTO {
         this.avaible = avaible;
         this.stock = stock;
         this.price = price;
-        this.total_price = total_price;
-        this.discount = discount != null ? discount : 0.0;
         this.images = images;
-        this.createAt = createAt;
     }
 
     public long getId() {
@@ -98,36 +89,12 @@ public class ProductDTO {
         this.price = price;
     }
 
-    public Double getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(Double discount) {
-        this.discount = discount;
-    }
-
     public List<String> getImages() {
         return images;
     }
 
     public void setImages(List<String> images) {
         this.images = images;
-    }
-
-    public LocalDateTime getCreateAt() {
-        return createAt;
-    }
-
-    public void setCreateAt(LocalDateTime createAt) {
-        this.createAt = createAt;
-    }
-
-    public double getTotal_price() {
-        return total_price;
-    }
-
-    public void setTotal_price(double total_price) {
-        this.total_price = total_price;
     }
 }
 
