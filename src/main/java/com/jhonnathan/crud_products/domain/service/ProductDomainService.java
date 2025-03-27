@@ -67,10 +67,13 @@ public class ProductDomainService implements ProductServicePort {
         Product product = repository.getProductById(id)
                 .orElseThrow(()-> new ProductNotFoundException("Producto no encontrado"));
 
+        System.out.println("------------------------------------");
+        System.out.println("cantidad de producto" +  product.getStock());
+        System.out.println("------------------------------------");
+
         if (product.getStock() < quantity){
             throw new StockException("Stock insuficiente");
         }
-
         product.setStock(product.getStock() - quantity);
         return  repository.update(id, product);
     }

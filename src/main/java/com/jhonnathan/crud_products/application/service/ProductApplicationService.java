@@ -84,23 +84,16 @@ public class ProductApplicationService {
 
     public List<ProductResponseDTO> requestProducts(List<ProductRequestDTO> productRequests) {
         return productRequests.stream().map(request -> {
+            int requestedQuantity = request.getQuantity();
+
             Product product = service.getProductById(request.getId())
                     .orElseThrow(() -> new ProductNotFoundException("Producto no encontrado"));
 
-            if (product.getStock() < request.getQuantity()) {
-                return new ProductResponseDTO(
-                        product.getId(),
-                        product.getName(),
-                        product.getDescription(),
-                        product.getCategory(),
-                        product.getAvaible(),
-                        product.getStock(),
-                        product.getPrice(),
-                        product.getImages()
-                );
+            if (product.getStock() < requestedQuantity) {
+                throw new RuntimeException("cantidad insuficiente, pruebe con menos cantidad");
             }
-            product.setStock(product.getStock() - request.getQuantity());
-            Product updatedProduct = service.update(product.getId(), product);
+
+            Product updatedProduct = service.updateStock(product.getId(), requestedQuantity);
 
             return new ProductResponseDTO(
                     updatedProduct.getId(),
@@ -108,7 +101,7 @@ public class ProductApplicationService {
                     updatedProduct.getDescription(),
                     updatedProduct.getCategory(),
                     updatedProduct.getAvaible(),
-                    updatedProduct.getStock(),
+                    requestedQuantity,
                     updatedProduct.getPrice(),
                     updatedProduct.getImages()
             );
