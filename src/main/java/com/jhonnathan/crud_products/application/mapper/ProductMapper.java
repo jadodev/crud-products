@@ -3,6 +3,9 @@ package com.jhonnathan.crud_products.application.mapper;
 import com.jhonnathan.crud_products.application.dto.ProductDTO;
 import com.jhonnathan.crud_products.domain.entity.Product;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class ProductMapper {
     public static ProductDTO toDto (Product product){
         return  new ProductDTO(
@@ -28,5 +31,11 @@ public class ProductMapper {
                 productDTO.getPrice(),
                 productDTO.getImages()
         );
+    }
+
+    public static List<Product> toDomainList(List<ProductDTO> dtos){
+        return  dtos.stream()
+                .map(ProductMapper::toDomain)
+                .collect(Collectors.toList());
     }
 }

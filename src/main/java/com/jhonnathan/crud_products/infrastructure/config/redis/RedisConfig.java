@@ -1,4 +1,4 @@
-package com.jhonnathan.crud_products.infrastructure.config;
+package com.jhonnathan.crud_products.infrastructure.config.redis;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
