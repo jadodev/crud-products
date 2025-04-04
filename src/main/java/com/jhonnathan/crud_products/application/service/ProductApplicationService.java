@@ -95,7 +95,7 @@ public class ProductApplicationService {
 
             Product updatedProduct = service.updateStock(product.getId(), requestedQuantity);
 
-            return new ProductResponseDTO(
+            ProductResponseDTO newProduct =  new ProductResponseDTO(
                     updatedProduct.getId(),
                     updatedProduct.getName(),
                     updatedProduct.getDescription(),
@@ -105,6 +105,7 @@ public class ProductApplicationService {
                     updatedProduct.getPrice(),
                     updatedProduct.getImages()
             );
+            return newProduct;
         }).collect(Collectors.toList());
     }
 }
